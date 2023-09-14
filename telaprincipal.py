@@ -15,7 +15,7 @@ while True:
         validar = Conexao.validar_usuario(Conexao, user, senha)
         if validar == "Validado":
             while True:
-                escolha2 = int(input(f"\nSeja Bem-vindo {user}.\n\nEscolha qual menu deseja acessar.\n\n1- Cadastrar Visitante\n2- Cadastrar visita\n3- Cadastrar saida de Visita\n4- Excluir ou alterar dados\n0- Sair\n->"))
+                escolha2 = int(input(f"\nSeja Bem-vindo {user}.\n\nEscolha qual menu deseja acessar.\n\n1- Cadastrar Visitante\n2- Cadastrar visita\n3- Cadastrar saida de Visita\n4- Excluir\n0- Sair\n->"))
                 if escolha2 == 1:
                     print("="*50)
                     print("Cadastro de visitante")
@@ -30,10 +30,24 @@ while True:
 
                     Conexao.cadastro_visita(Conexao)
                 elif escolha2 == 3:
-                    d
+                    print("="*50)
+                    print("Cadastro de saida de visita")
+                    print("="*50)
+
+                    Conexao.cadastro_saidavisita(Conexao)
 
                 elif escolha2 == 4:
-                    d
+                    print("="*50)
+                    print("Exclusão de dados")
+                    print("="*50)
+
+                    while True:
+                        Conexao.exclusao_banco(Conexao)
+                        escolha = int(input("\nDeseja sair?\n1- Sim\n2- Não\n->"))
+
+                        if escolha == 1:
+                            break
+                    
                 else: break
 
         else: print("\nAcesso negado!\n")
