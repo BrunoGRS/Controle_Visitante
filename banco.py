@@ -21,12 +21,20 @@ class Conexao:
         connect = self.conectar(self)
         cursor = connect.cursor()
 
-        cpf = int(input("Digite os 5 primeiros digitos do cpf -> "))
+        cpf = input("Digite os 5 primeiros digitos do cpf -> ")
+        if len(cpf) > 6:
+            print("Número de CPF muito longo, favor colocar só os primeiros 5 digitos.")
+            return
+        
         nome = input("Digite teu nome -> ")
         user = input("Digite seu nome de login (máximo 15 letras) -> ")
-        senha = input("Digite sua senha -> ")   
+        if len(user) > 15:
+            print("Nome de usuário muito grande favor colocar outro.")
+            return  
+        
+        senha = input("Digite sua senha -> ")
 
-        cursor.execute(f"INSERT INTO usuarios(cpf_user,nome_user,user_user,user_senha) VALUES ({cpf},'{nome}','{user}','{senha}')")
+        cursor.execute(f"INSERT INTO usuarios(cpf_user,nome_user,user_user,user_senha) VALUES ({int(cpf)},'{nome}','{user}','{senha}')")
         connect.commit()
 
         return cursor
@@ -35,13 +43,17 @@ class Conexao:
         connect = self.conectar(self)
         cursor = connect.cursor()
 
-        cpf = int(input("Digite os 5 primeiros digitos do CPF do visitante -> "))
+        cpf = input("Digite os 5 primeiros digitos do CPF do visitante -> ")
+        if len(cpf) > 6:
+            print("Número de CPF muito longo, favor colocar só os primeiros 5 digitos.")
+            return
+        
         nome = input("Digite o nome completo do visitante -> ")
 
         escolha = input("Confirmar cadastro?\n S - Sim N -Não\n -> ").upper()
 
         if escolha == 'S':
-            cursor.execute(f"INSERT INTO visitante(cpf_visitante,nome_visitante) VALUES ({cpf}, '{nome}')")
+            cursor.execute(f"INSERT INTO visitante(cpf_visitante,nome_visitante) VALUES ({int(cpf)}, '{nome}')")
             connect.commit()
             return cursor
         else: print("\nCadastro cancelado!\n")
@@ -51,6 +63,7 @@ class Conexao:
         cursor = connect.cursor()
 
         cpf = int(input("Dgite os 5 primeiros digitos do visitante -> "))
+        
         motivo = input("Escreva de forma breve o motivo da visita -> ")
 
         data = datetime.datetime.now()
@@ -68,7 +81,7 @@ class Conexao:
         connect = self.conectar(self)
         cursor = connect.cursor()
 
-        cpf = int(input("Dgite os 5 primeiros digitos do visitante -> "))
+        cpf = int(input("Dgite os 5 primeiros digitos do CPF do visitante -> "))
 
         data = datetime.datetime.now()
 
@@ -89,7 +102,7 @@ class Conexao:
         escolha = int(input("\nSelecione qual dado deseja excluir.\n1- Visitante\n2- Visita\n3- Saida Visita\n-> "))
 
         if escolha == 1:
-            cpf = int(input("\nInforme os 5 primeiros digitos do visitante -> "))
+            cpf = int(input("\nInforme os 5 primeiros digitos do CPF do visitante -> "))
 
             cursor.execute(f"SELECT * FROM visitante WHERE cpf_visitante={cpf}")
             resultado = cursor.fetchall()
@@ -112,7 +125,10 @@ class Conexao:
             else: print("\nExclusão Cancelada!\n")
 
         elif escolha == 2:
-            cpf = int(input("\nInforme os 5 primeiros digitos do visitante -> "))
+            cpf = int(input("\nInforme os 5 primeiros digitos do CPF do visitante -> "))
+            if len(cpf) > 6:
+                print("Número de CPF muito longo, favor colocar só os primeiros 5 digitos.")
+                return
 
             cursor.execute(f"SELECT * FROM visita WHERE cpf_visitante={cpf}")
             resultado = cursor.fetchall()
@@ -135,7 +151,7 @@ class Conexao:
             else: print("\nExclusão Cancelada!\n")
                 
         else:
-            cpf = int(input("\nInforme os 5 primeiros digitos do visitante -> "))
+            cpf = int(input("\nInforme os 5 primeiros digitos do CPF do visitante -> "))
 
             cursor.execute(f"SELECT * FROM saida_visita WHERE cpf_visitante={cpf}")
             resultado = cursor.fetchall()
