@@ -185,6 +185,6 @@ class Conexao:
 
 
     def finalizar_conexao(self):
-        if 'conect' in locals():
-            conect = self.conectar(self)
-            conect.close()
+        if 'connect' in locals():
+            connect = self.conectar(self)
+            connect.close()
